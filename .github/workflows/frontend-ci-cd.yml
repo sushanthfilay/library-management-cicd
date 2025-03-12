@@ -1,0 +1,39 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Change if using a different branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Use your preferred Node.js version
+
+      - name: Install Dependencies
+        run: npm install  # Or yarn install
+
+      - name: Build Frontend
+        run: npm run build  # Or yarn build, adjust based on your framework
+
+      - name: Deploy (Optional)
+        run: |
+          # Add deployment commands if needed
+          # Example for Firebase:
+          # npm install -g firebase-tools
+          # firebase deploy --token "$FIREBASE_TOKEN"
+
+      # Example for S3 deployment:
+      # - name: Deploy to AWS S3
+      #   run: aws s3 sync ./build s3://your-bucket-name --delete
