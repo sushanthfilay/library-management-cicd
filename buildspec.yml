@@ -5,13 +5,16 @@ phases:
     runtime-versions:
       java: corretto11
     commands:
-      - echo Installing Maven...
-      - mvn install -DskipTests=true
+      - echo Installing dependencies...
+      - mvn clean install -DskipTests=true
   build:
     commands:
-      - echo Building the project...
+      - echo Packaging application...
       - mvn package -DskipTests=true
-
+  post_build:
+    commands:
+      - echo Build completed.
 artifacts:
   files:
     - target/*.jar
+  discard-paths: yes
